@@ -53,33 +53,24 @@ void loop()
 {
   int size = sizeof(durations) / sizeof(int);
 
-  for (int note = super_note; note < size; note++) 
-  {
+  for (int note = super_note; note < size; note++) {
     int distance = getDistance();
     printVals(note, super_note); 
 
-    if (distance < 100)
-    {
-    //to calculate the note duration, take one second divided by the note type.
-    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-    int duration = (distance * 10) / durations[note]; 
-    tone(BUZZER_PIN, melody[note], duration);
-
-    //to distinguish the notes, set a minimum time between them.
-    //the note's duration + 30% seems to work well:
-    int pauseBetweenNotes = duration * 1.30;
-    delay(pauseBetweenNotes);
-    
-    //stop the tone playing:
-    noTone(BUZZER_PIN);
+    if (distance < 100){
+      int duration = (distance * 10) / durations[note]; 
+      tone(BUZZER_PIN, melody[note], duration);
+      int pauseBetweenNotes = duration * 1.30;
+      delay(pauseBetweenNotes);
+      noTone(BUZZER_PIN);
     }
-    else
-    {
+
+    else{
       super_note = note;
       break;
     }
-    if (note == size - 1)
-    {
+
+    if (note == size - 1){
       super_note = 0; 
       break;
     }
